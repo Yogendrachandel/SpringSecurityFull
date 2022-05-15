@@ -9,7 +9,7 @@ public enum ApplicationUserRole {
 	// we have define two role STUDENT,(no permission) and ADMIN(COURSE_READ,COURSE_WRITE,STUDENT_READ,STUDENT_WRITE) 4 permission
 
 	 STUDENT(ApplicationUserRole.rolePermissionListforStudent())
-	,ADMIN(ApplicationUserRole.rolePermissionListforStudent());
+	,ADMIN(ApplicationUserRole.rolePermissionListforAdmin());
 	
 	
 	private final Set<ApplicationUserPermission>permission;
