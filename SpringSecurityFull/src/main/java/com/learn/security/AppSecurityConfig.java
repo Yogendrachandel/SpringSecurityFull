@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import com.learn.userrole.ApplicationUserRole;
+
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -23,11 +25,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
+		
 		http
 			.authorizeRequests()
 			.antMatchers("/","index","/css/*","/js/*") //to give permission like  root  and index and css and js without security
-			 .permitAll()
-			 .anyRequest().authenticated()
+			.permitAll()
+			.antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())// only user who has Student role access this resources.
+			.anyRequest().authenticated()
 			.and()
 			.formLogin().
 			 and()
@@ -44,14 +48,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	@Bean
 	protected UserDetailsService userDetailsService() {
-		UserDetails amanUser= User.builder().username("aman")
+		
+		//Create one user with STUDENT role with 0 permissions.
+		UserDetails amanUser= User.builder().username("annasmith")
 		 				.password(createOurpasswordEncoder().encode("1234"))// we are specifing the ecncder otherwise getting error
-		 				.roles("STUDENT") // spring security internally convert this role as ROLE_STUDENT and add in GrantedAuthority .open this method and explore.
+		 				.roles(ApplicationUserRole.STUDENT.name()) // spring security internally convert this role as ROLE_STUDENT and add in GrantedAuthority .open this method and explore.
 		 				.build();
 		
-		UserDetails ajayuser= User.builder().username("ajay")
+		//Create one user with ADMIN role with 4 permissions.
+		UserDetails ajayuser= User.builder().username("linda")
 				.password(createOurpasswordEncoder().encode("1234"))// we are specifing the ecncder otherwise getting error
- 				.roles("STUDENT") // spring security internally convert this role as ROLE_STUDENT and add in GrantedAuthority .open this method and explore.
+ 				.roles(ApplicationUserRole.ADMIN.name()) // spring security internally convert this role as ROLE_ADMIN and add in GrantedAuthority .open this method and explore.
  				.build();
 		
 		List<UserDetails> userLists= new ArrayList<>();
