@@ -16,9 +16,9 @@ public class StudentController {
 	
 	
 	private static final List<Student> STUDENTS = Arrays.asList(
-		      new Student(1, "James Bond"),
-		      new Student(2, "Maria Jones"),
-		      new Student(3, "Anna Smith")
+		      new Student(1, "aman"),
+		      new Student(2, "ajay"),
+		      new Student(3, "anna")
 		    );
 	
 	
