@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,6 +23,7 @@ import com.learn.userrole.ApplicationUserRole;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true) //only when method level  @PreAuthorize annotation used.
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	//the spring username is user and password  will be created by spring in console with base64
@@ -35,10 +38,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/","index","/css/*","/js/*") //to give permission like  root  and index and css and js without security
 			.permitAll()
 			.antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())// only user who has Student role access this resources.
-			.antMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
-			.antMatchers(HttpMethod.POST, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
-			.antMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
-			.antMatchers("/management/api/**").hasAnyRole(ApplicationUserRole.ADMIN.name(), ApplicationUserRole.ADMIN_TRANIEE.name())//This is for GET endpoint - we are allowing ADMIN and ADMIN_TRANIEE only not STUDENT.
+		//	.antMatchers(HttpMethod.DELETE, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
+		//	.antMatchers(HttpMethod.POST, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
+		//	.antMatchers(HttpMethod.PUT, "/management/api/**").hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermissions())
+		//	.antMatchers("/management/api/**").hasAnyRole(ApplicationUserRole.ADMIN.name(), ApplicationUserRole.ADMIN_TRANIEE.name())//This is for GET endpoint - we are allowing ADMIN and ADMIN_TRANIEE only not STUDENT.
 			.anyRequest().authenticated()
 			.and()
 			.formLogin().

@@ -27,29 +27,31 @@ public class StudentManagementController {
 
 //    hasRole('ROLE_') hasAnyRole('ROLE_') hasAuthority('permission') hasAnyAuthority('permission')
 
+    //Note;- Now he have used annotation basedt(@PreAuthorize) authorization we are going to comment antMatcher in config class
+    
     @GetMapping
- //   @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ADMIN_TRANIEE')")
     public List<Student> getAllStudents() {
         System.out.println("getAllStudents");
         return STUDENTS;
     }
 
     @PostMapping
-  //  @PreAuthorize("hasAuthority('student:write')")
+    @PreAuthorize("hasAuthority('student:write')")
     public void registerNewStudent(@RequestBody Student student) {
         System.out.println("registerNewStudent");
         System.out.println(student);
     }
 
     @DeleteMapping(path = "{studentId}")
-   // @PreAuthorize("hasAuthority('student:write')")
+    @PreAuthorize("hasAuthority('student:write')")
     public void deleteStudent(@PathVariable("studentId") Integer studentId) {
         System.out.println("deleteStudent");
         System.out.println(studentId);
     }
 
     @PutMapping(path = "{studentId}")
-   // @PreAuthorize("hasAuthority('student:write')")
+    @PreAuthorize("hasAuthority('student:write')")
     public void updateStudent(@PathVariable("studentId") Integer studentId, @RequestBody Student student) {
         System.out.println("updateStudent");
         System.out.println(String.format("%s %s", studentId, student));
