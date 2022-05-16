@@ -11,6 +11,7 @@ public enum ApplicationUserPermission {
 	private final String permissions; 
 
 	ApplicationUserPermission(String string) {
+		System.out.println(" ApplicationUserPermission constructor is called: "+ string);
 		this.permissions=string;
 	}
 
