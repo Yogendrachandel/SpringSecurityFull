@@ -24,6 +24,8 @@ import com.learn.userrole.ApplicationUserRole;
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	//the spring username is user and password  will be created by spring in console with base64
+	//The important thing is Order of rule is very important-check this link-  https://stackoverflow.com/questions/30819337/multiple-antmatchers-in-spring-security
+	//more specific rule should be written first.
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		System.out.println("## Inside the configure(HttpSecurity http)  method ##");
