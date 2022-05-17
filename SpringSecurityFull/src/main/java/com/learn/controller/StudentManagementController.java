@@ -20,9 +20,9 @@ import com.learn.model.Student;
 public class StudentManagementController {
 
     private static final List<Student> STUDENTS = Arrays.asList(
-            new Student(1, "James Bond"),
-            new Student(2, "Maria Jones"),
-            new Student(3, "Anna Smith")
+            new Student(1, "annasmith"),
+            new Student(2, "linda"),
+            new Student(3, "tom")
     );
 
 //    hasRole('ROLE_') hasAnyRole('ROLE_') hasAuthority('permission') hasAnyAuthority('permission')
